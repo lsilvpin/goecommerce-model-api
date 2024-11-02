@@ -1,7 +1,7 @@
 package utils
 
-func GenerateSample() {
-	return map[string]interface{}{
+func GenerateSample() map[string]interface{} {
+	samplesMap := map[string]interface{}{
 		"id":         1,
 		"name":       "Sample Name",
 		"age":        20,
@@ -10,4 +10,5 @@ func GenerateSample() {
 		"created_at": "2021-01-01T00:00:00Z",
 		"updated_at": "2021-01-01T00:00:00Z",
 	}
+	return samplesMap
 }
