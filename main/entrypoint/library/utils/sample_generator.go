@@ -12,3 +12,12 @@ func GenerateSample() map[string]interface{} {
 	}
 	return samplesMap
 }
+
+func GenerateSampleList() []map[string]interface{} {
+	sampleList := []map[string]interface{}{}
+	for i := 0; i < 10; i++ {
+		sample := GenerateSample()
+		sampleList = append(sampleList, sample)
+	}
+	return sampleList
+}
