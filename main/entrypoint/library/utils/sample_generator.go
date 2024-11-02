@@ -1,12 +1,13 @@
 package utils
 
-func GenerateSample() Sample {
-	return Sample{
-		Name:      "Sample",
-		Age:       20,
-		Size:      1.80,
-		IsVisible: true,
-		CreatedAt: "2021-01-01",
-		UpdatedAt: "2021-01-01",
+func GenerateSample() {
+	return map[string]interface{}{
+		"id":         1,
+		"name":       "Sample Name",
+		"age":        20,
+		"size":       1.75,
+		"is_visible": true,
+		"created_at": "2021-01-01T00:00:00Z",
+		"updated_at": "2021-01-01T00:00:00Z",
 	}
 }
