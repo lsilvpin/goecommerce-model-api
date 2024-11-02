@@ -1,6 +1,8 @@
 package controllers
 
 import (
+	"strconv"
+
 	"github.com/gin-gonic/gin"
 	models "github.com/lsilvpin/goecommerce-model-api/main/library/domain/models"
 	"github.com/lsilvpin/goecommerce-model-api/main/library/utils"
@@ -19,9 +21,18 @@ func GetSamples(c *gin.Context) {
 }
 
 func GetSampleById(c *gin.Context) {
-	id := c.Param("id")
+	idFromInput := c.Param("id")
+	sample := utils.GenerateSample()
+	idFromInputAsInt, _ := strconv.Atoi(idFromInput)
+	sample.Id = idFromInputAsInt
 	c.JSON(200, gin.H{
-		"sampleId": id,
+		"sample": sample,
+		"retorno": models.ReturnModel{
+			Trace:             "",
+			Message:           "Amostra retornada com sucesso",
+			HttpStatusMessage: "OK",
+			HttpStatusCode:    200,
+		},
 	})
 }
 
