@@ -5,7 +5,7 @@ import (
 	"github.com/lsilvpin/goecommerce-model-api/main/entrypoint/controllers"
 )
 
-func HandleRequests() {
+func SetupApi() {
 	r := gin.Default()
 	r.GET("/info", controllers.GetInfo)
 	r.Run()
