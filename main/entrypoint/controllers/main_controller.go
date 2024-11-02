@@ -2,11 +2,19 @@ package controllers
 
 import (
 	"github.com/gin-gonic/gin"
+	domain "github.com/lsilvpin/goecommerce-model-api/main/library/domain/models"
+	"github.com/lsilvpin/goecommerce-model-api/main/library/utils"
 )
 
 func GetSamples(c *gin.Context) {
 	c.JSON(200, gin.H{
-		"sample": "Hello World",
+		"samples": utils.GenerateSampleList(),
+		"retorno": domain.ReturnModel{
+			Trace:             "",
+			Message:           "Lista de amostras retornada com sucesso",
+			HttpStatusMessage: "OK",
+			HttpStatusCode:    200,
+		},
 	})
 }
 
