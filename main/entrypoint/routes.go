@@ -7,6 +7,10 @@ import (
 
 func SetupApi() {
 	r := gin.Default()
-	r.GET("/info", controllers.GetInfo)
+	r.GET("/samples", controllers.GetSamples)
+	r.GET("/samples/:id", controllers.GetSampleById)
+	r.POST("/samples", controllers.CreateSample)
+	r.PUT("/samples/:id", controllers.UpdateSample)
+	r.DELETE("/samples/:id", controllers.DeleteSample)
 	r.Run()
 }
