@@ -15,6 +15,7 @@ var (
 
 func ConnectToDatabaseAndMigrate() {
 	environment := GetEnv("ENVIRONMENT")
+	log.Println("Environment: ", environment)
 	connectionString := GetEnv("DATABASE_CONNECTION_STRING")
 	log.Println("Connection string: ", connectionString)
 	err := error(nil)
