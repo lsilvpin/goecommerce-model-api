@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"log"
 	"net/http"
 	"strconv"
 
@@ -26,6 +27,7 @@ func GetSamples(c *gin.Context) {
 func GetSampleById(c *gin.Context) {
 	var idFromInput uint64
 	idFromInput, err := strconv.ParseUint(c.Param("id"), 10, 64)
+	log.Println("idFromInput: ", idFromInput)
 	if err != nil {
 		c.JSON(500, gin.H{
 			"retorno": models.ReturnModel{
