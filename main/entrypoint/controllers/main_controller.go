@@ -13,7 +13,9 @@ import (
 
 func GetSamples(c *gin.Context) {
 	samples := repositories.ReadAllSamples()
+	length := len(samples)
 	c.JSON(200, gin.H{
+		"length":  length,
 		"samples": samples,
 		"retorno": models.ReturnModel{
 			Trace:   "",
