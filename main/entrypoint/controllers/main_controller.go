@@ -1,10 +1,13 @@
 package controllers
 
 import (
+	"net/http"
 	"strconv"
 
 	"github.com/gin-gonic/gin"
+	entities "github.com/lsilvpin/goecommerce-model-api/main/library/domain/entities"
 	models "github.com/lsilvpin/goecommerce-model-api/main/library/domain/models"
+	"github.com/lsilvpin/goecommerce-model-api/main/library/repositories"
 	"github.com/lsilvpin/goecommerce-model-api/main/library/utils"
 )
 
@@ -21,10 +24,20 @@ func GetSamples(c *gin.Context) {
 }
 
 func GetSampleById(c *gin.Context) {
-	idFromInput := c.Param("id")
-	sample := utils.GenerateSample()
-	idFromInputAsInt, _ := strconv.Atoi(idFromInput)
-	sample.Id = idFromInputAsInt
+	var idFromInput uint64
+	idFromInput, err := strconv.ParseUint(c.Param("id"), 10, 64)
+	if err != nil {
+		c.JSON(500, gin.H{
+			"retorno": models.ReturnModel{
+				Trace:             "",
+				Message:           "Erro ao buscar amostra: " + err.Error(),
+				HttpStatusMessage: "Internal Server Error",
+				HttpStatusCode:    500,
+			},
+		})
+		return
+	}
+	sample := repositories.ReadSampleById(idFromInput)
 	c.JSON(200, gin.H{
 		"sample": sample,
 		"retorno": models.ReturnModel{
@@ -37,31 +50,76 @@ func GetSampleById(c *gin.Context) {
 }
 
 func CreateSample(c *gin.Context) {
-	createdSampleObj := map[string]interface{}{
-		"id":   1,
-		"name": "Sample Name",
+	var sample entities.Sample
+	if err := c.ShouldBindJSON(&sample); err != nil {
+		c.JSON(500, gin.H{
+			"retorno": models.ReturnModel{
+				Trace:             "",
+				Message:           "Erro ao criar amostra: " + err.Error(),
+				HttpStatusMessage: "Internal Server Error",
+				HttpStatusCode:    500,
+			},
+		})
+		return
 	}
-	c.JSON(201, gin.H{
-		"id":   createdSampleObj["id"],
-		"name": createdSampleObj["name"],
+	repositories.CreateSample(sample)
+	c.JSON(http.StatusOK, gin.H{
+		"createdSample": sample,
+		"retorno": models.ReturnModel{
+			Trace:             "",
+			Message:           "Amostra criada com sucesso",
+			HttpStatusMessage: "OK",
+			HttpStatusCode:    200,
+		},
 	})
 }
 
 func UpdateSample(c *gin.Context) {
-	id := c.Param("id")
-	updatedSampleObj := map[string]interface{}{
-		"id":   id,
-		"name": "Sample Name Updated",
+	var sample entities.Sample
+	if err := c.ShouldBindJSON(&sample); err != nil {
+		c.JSON(500, gin.H{
+			"retorno": models.ReturnModel{
+				Trace:             "",
+				Message:           "Erro ao atualizar amostra: " + err.Error(),
+				HttpStatusMessage: "Internal Server Error",
+				HttpStatusCode:    500,
+			},
+		})
+		return
 	}
-	c.JSON(200, gin.H{
-		"id":   updatedSampleObj["id"],
-		"name": updatedSampleObj["name"],
+	repositories.UpdateSample(sample.ID, sample)
+	c.JSON(http.StatusOK, gin.H{
+		"updatedSample": sample,
+		"retorno": models.ReturnModel{
+			Trace:             "",
+			Message:           "Amostra atualizada com sucesso",
+			HttpStatusMessage: "OK",
+			HttpStatusCode:    200,
+		},
 	})
 }
 
 func DeleteSample(c *gin.Context) {
-	id := c.Param("id")
-	c.JSON(200, gin.H{
-		"message": "Sample " + id + " deleted successfully",
+	var idFromInput uint64
+	idFromInput, err := strconv.ParseUint(c.Param("id"), 10, 64)
+	if err != nil {
+		c.JSON(500, gin.H{
+			"retorno": models.ReturnModel{
+				Trace:             "",
+				Message:           "Erro ao deletar amostra: " + err.Error(),
+				HttpStatusMessage: "Internal Server Error",
+				HttpStatusCode:    500,
+			},
+		})
+		return
+	}
+	repositories.DeleteSampleById(idFromInput)
+	c.JSON(http.StatusOK, gin.H{
+		"retorno": models.ReturnModel{
+			Trace:             "",
+			Message:           "Amostra deletada com sucesso",
+			HttpStatusMessage: "OK",
+			HttpStatusCode:    200,
+		},
 	})
 }

@@ -1,11 +1,12 @@
 package domain
 
+import "gorm.io/gorm"
+
 type Sample struct {
-	Id        int     `json:"id"`
+	ID uint64 `gorm:"primaryKey;autoIncrement" json:"id"`
+	gorm.Model
 	Name      string  `json:"name"`
 	Age       int     `json:"age"`
 	Size      float64 `json:"size"`
 	IsVisible bool    `json:"is_visible"`
-	CreatedAt string  `json:"created_at"`
-	UpdatedAt string  `json:"updated_at"`
 }
