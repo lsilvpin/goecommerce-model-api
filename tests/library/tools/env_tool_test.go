@@ -21,7 +21,7 @@ func TestShouldGetEnvironmentVariableSuccessfully(t *testing.T) {
 
 func TestShouldProveThatEnvVarIsMorePriorityThanDotEnv(t *testing.T) {
 	// Arrange
-	key := "ENVIRONMENT"
+	key := "DATABASE_CONNECTION_STRING"
 	value := "TEST_ENV_VALUE"
 	utils.SetEnv(key, value)
 	utils.LoadDotEnv()
@@ -31,4 +31,17 @@ func TestShouldProveThatEnvVarIsMorePriorityThanDotEnv(t *testing.T) {
 
 	// Assert
 	utils.AssertTrue(t, envValue == value, "Error getting environment variable")
+}
+
+func TestShouldProveThatEnvVarCanBeGetFromDotEnv(t *testing.T) {
+	// Arrange
+	key := "ENVIRONMENT"
+	expectedValue := "dev"
+	utils.LoadDotEnv()
+
+	// Act
+	envValue := utils.GetEnv(key)
+
+	// Assert
+	utils.AssertTrue(t, envValue == expectedValue, "Error getting environment variable from DotEnvFile")
 }
