@@ -86,9 +86,18 @@ func UpdateSample(c *gin.Context) {
 		})
 		return
 	}
-	repositories.UpdateSample(sample.ID, sample)
+	sampleAfterUpdate, updateErr := repositories.UpdateSample(sample.ID, sample)
+	if updateErr != nil {
+		c.JSON(404, gin.H{
+			"retorno": models.ReturnModel{
+				Trace:   "",
+				Message: "Amostra de id " + strconv.FormatUint(sample.ID, 10) + " não encontrada",
+			},
+		})
+		return
+	}
 	c.JSON(http.StatusOK, gin.H{
-		"updatedSample": sample,
+		"updatedSample": sampleAfterUpdate,
 		"retorno": models.ReturnModel{
 			Trace:   "",
 			Message: "Amostra atualizada com sucesso",

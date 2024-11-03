@@ -27,11 +27,16 @@ func ReadSampleById(id uint64) (entities.Sample, error) {
 	return sample, err
 }
 
-func UpdateSample(id uint64, sample entities.Sample) {
-	utils.DB.
-		Model(&entities.Sample{}).
-		Where("id = ?", id).
-		Updates(sample)
+func UpdateSample(id uint64, sample entities.Sample) (entities.Sample, error) {
+	sampleFromDb, err := ReadSampleById(id)
+	if err == nil {
+		sampleFromDb.Name = sample.Name
+		sampleFromDb.Age = sample.Age
+		sampleFromDb.Size = sample.Size
+		sampleFromDb.IsVisible = sample.IsVisible
+		utils.DB.Save(&sampleFromDb)
+	}
+	return sampleFromDb, err
 }
 
 func DeleteSampleById(id uint64) error {
