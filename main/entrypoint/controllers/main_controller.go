@@ -39,7 +39,18 @@ func GetSampleById(c *gin.Context) {
 		})
 		return
 	}
-	sample := repositories.ReadSampleById(idFromInput)
+	sample, err := repositories.ReadSampleById(idFromInput)
+	if err != nil {
+		c.JSON(404, gin.H{
+			"retorno": models.ReturnModel{
+				Trace:             "",
+				Message:           "Amostra não encontrada",
+				HttpStatusMessage: "Not Found",
+				HttpStatusCode:    404,
+			},
+		})
+		return
+	}
 	c.JSON(200, gin.H{
 		"sample": sample,
 		"retorno": models.ReturnModel{

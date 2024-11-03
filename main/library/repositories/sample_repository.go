@@ -1,6 +1,8 @@
 package repositories
 
 import (
+	"errors"
+
 	entities "github.com/lsilvpin/goecommerce-model-api/main/library/domain/entities"
 	"github.com/lsilvpin/goecommerce-model-api/main/library/utils"
 )
@@ -15,10 +17,14 @@ func ReadAllSamples() []entities.Sample {
 	return samples
 }
 
-func ReadSampleById(id uint64) entities.Sample {
+func ReadSampleById(id uint64) (entities.Sample, error) {
 	sample := entities.Sample{}
 	utils.DB.First(&sample, id)
-	return sample
+	var err error
+	if sample.ID == 0 {
+		err = errors.New("sample not found")
+	}
+	return sample, err
 }
 
 func UpdateSample(id uint64, sample entities.Sample) {
