@@ -21,5 +21,11 @@
 go.work
 go.work.sum
 
-# env file
-.env
+# Temp Files
+.tmp
+
+# .devcontainer configs
+.devcontainer
+
+# vscode
+.vscode
