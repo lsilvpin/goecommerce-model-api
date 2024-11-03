@@ -4,6 +4,7 @@ import (
 	"log"
 
 	entities "github.com/lsilvpin/goecommerce-model-api/main/library/domain/entities"
+	"github.com/lsilvpin/goecommerce-model-api/main/library/tools"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
@@ -13,7 +14,8 @@ var (
 )
 
 func ConnectToDatabaseAndMigrate() {
-	connectionString := "host=localhost user=postgres password=postgres dbname=goecommerce port=5432 sslmode=disable TimeZone=Asia/Shanghai"
+	connectionString := tools.GetEnv("DATABASE_CONNECTION_STRING")
+	log.Println("Connection string: ", connectionString)
 	err := error(nil)
 	DB, err = gorm.Open(postgres.Open(connectionString))
 	if err != nil {
