@@ -16,10 +16,8 @@ func GetSamples(c *gin.Context) {
 	c.JSON(200, gin.H{
 		"samples": samples,
 		"retorno": models.ReturnModel{
-			Trace:             "",
-			Message:           "Amostras retornadas com sucesso",
-			HttpStatusMessage: "OK",
-			HttpStatusCode:    200,
+			Trace:   "",
+			Message: "Amostras retornadas com sucesso",
 		},
 	})
 }
@@ -31,10 +29,8 @@ func GetSampleById(c *gin.Context) {
 	if err != nil {
 		c.JSON(500, gin.H{
 			"retorno": models.ReturnModel{
-				Trace:             "",
-				Message:           "Erro ao buscar amostra: " + err.Error(),
-				HttpStatusMessage: "Internal Server Error",
-				HttpStatusCode:    500,
+				Trace:   "",
+				Message: "Erro ao buscar amostra: " + err.Error(),
 			},
 		})
 		return
@@ -43,10 +39,8 @@ func GetSampleById(c *gin.Context) {
 	if err != nil {
 		c.JSON(404, gin.H{
 			"retorno": models.ReturnModel{
-				Trace:             "",
-				Message:           "Amostra não encontrada",
-				HttpStatusMessage: "Not Found",
-				HttpStatusCode:    404,
+				Trace:   "",
+				Message: "Amostra não encontrada",
 			},
 		})
 		return
@@ -54,10 +48,8 @@ func GetSampleById(c *gin.Context) {
 	c.JSON(200, gin.H{
 		"sample": sample,
 		"retorno": models.ReturnModel{
-			Trace:             "",
-			Message:           "Amostra retornada com sucesso",
-			HttpStatusMessage: "OK",
-			HttpStatusCode:    200,
+			Trace:   "",
+			Message: "Amostra retornada com sucesso",
 		},
 	})
 }
@@ -67,10 +59,8 @@ func CreateSample(c *gin.Context) {
 	if err := c.ShouldBindJSON(&sample); err != nil {
 		c.JSON(500, gin.H{
 			"retorno": models.ReturnModel{
-				Trace:             "",
-				Message:           "Erro ao criar amostra: " + err.Error(),
-				HttpStatusMessage: "Internal Server Error",
-				HttpStatusCode:    500,
+				Trace:   "",
+				Message: "Erro ao criar amostra: " + err.Error(),
 			},
 		})
 		return
@@ -79,10 +69,8 @@ func CreateSample(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{
 		"createdSample": sample,
 		"retorno": models.ReturnModel{
-			Trace:             "",
-			Message:           "Amostra criada com sucesso",
-			HttpStatusMessage: "OK",
-			HttpStatusCode:    200,
+			Trace:   "",
+			Message: "Amostra criada com sucesso",
 		},
 	})
 }
@@ -92,10 +80,8 @@ func UpdateSample(c *gin.Context) {
 	if err := c.ShouldBindJSON(&sample); err != nil {
 		c.JSON(500, gin.H{
 			"retorno": models.ReturnModel{
-				Trace:             "",
-				Message:           "Erro ao atualizar amostra: " + err.Error(),
-				HttpStatusMessage: "Internal Server Error",
-				HttpStatusCode:    500,
+				Trace:   "",
+				Message: "Erro ao atualizar amostra: " + err.Error(),
 			},
 		})
 		return
@@ -104,10 +90,8 @@ func UpdateSample(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{
 		"updatedSample": sample,
 		"retorno": models.ReturnModel{
-			Trace:             "",
-			Message:           "Amostra atualizada com sucesso",
-			HttpStatusMessage: "OK",
-			HttpStatusCode:    200,
+			Trace:   "",
+			Message: "Amostra atualizada com sucesso",
 		},
 	})
 }
@@ -118,10 +102,8 @@ func DeleteSample(c *gin.Context) {
 	if err != nil {
 		c.JSON(500, gin.H{
 			"retorno": models.ReturnModel{
-				Trace:             "",
-				Message:           "Erro ao deletar amostra: " + err.Error(),
-				HttpStatusMessage: "Internal Server Error",
-				HttpStatusCode:    500,
+				Trace:   "",
+				Message: "Erro ao deletar amostra: " + err.Error(),
 			},
 		})
 		return
@@ -129,10 +111,8 @@ func DeleteSample(c *gin.Context) {
 	repositories.DeleteSampleById(idFromInput)
 	c.JSON(http.StatusOK, gin.H{
 		"retorno": models.ReturnModel{
-			Trace:             "",
-			Message:           "Amostra deletada com sucesso",
-			HttpStatusMessage: "OK",
-			HttpStatusCode:    200,
+			Trace:   "",
+			Message: "Amostra deletada com sucesso",
 		},
 	})
 }
