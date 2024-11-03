@@ -76,17 +76,27 @@ func CreateSample(c *gin.Context) {
 }
 
 func UpdateSample(c *gin.Context) {
+	idFromInput, err := strconv.ParseUint(c.Param("id"), 10, 64)
+	if err != nil {
+		c.JSON(500, gin.H{
+			"retorno": models.ReturnModel{
+				Trace:   "",
+				Message: "Erro ao obter id da amostra: " + err.Error(),
+			},
+		})
+		return
+	}
 	var sample entities.Sample
 	if err := c.ShouldBindJSON(&sample); err != nil {
 		c.JSON(500, gin.H{
 			"retorno": models.ReturnModel{
 				Trace:   "",
-				Message: "Erro ao atualizar amostra: " + err.Error(),
+				Message: "Erro ao obter amostra para atualização: " + err.Error(),
 			},
 		})
 		return
 	}
-	sampleAfterUpdate, updateErr := repositories.UpdateSample(sample.ID, sample)
+	sampleAfterUpdate, updateErr := repositories.UpdateSample(idFromInput, sample)
 	if updateErr != nil {
 		c.JSON(404, gin.H{
 			"retorno": models.ReturnModel{
