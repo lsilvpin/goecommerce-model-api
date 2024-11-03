@@ -101,7 +101,7 @@ func UpdateSample(c *gin.Context) {
 		c.JSON(404, gin.H{
 			"retorno": models.ReturnModel{
 				Trace:   "",
-				Message: "Amostra de id " + strconv.FormatUint(sample.ID, 10) + " não encontrada",
+				Message: "Amostra de id " + strconv.FormatUint(idFromInput, 10) + " não encontrada",
 			},
 		})
 		return
