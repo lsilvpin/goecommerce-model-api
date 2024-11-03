@@ -12,9 +12,9 @@ func GenerateSample() domain.Sample {
 	return sampleObj
 }
 
-func GenerateSampleList() []domain.Sample {
+func GenerateSampleList(numberOfSamples int) []domain.Sample {
 	sampleList := []domain.Sample{}
-	for i := 0; i < 10; i++ {
+	for i := 0; i < numberOfSamples; i++ {
 		sample := GenerateSample()
 		sampleList = append(sampleList, sample)
 	}
