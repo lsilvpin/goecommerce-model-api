@@ -24,9 +24,6 @@ go.work.sum
 # Temp Files
 .tmp
 
-# env file
-.env
-
 # .devcontainer configs
 .devcontainer
 
