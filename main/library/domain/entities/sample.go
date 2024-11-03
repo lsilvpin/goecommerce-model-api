@@ -3,7 +3,7 @@ package domain
 import "gorm.io/gorm"
 
 type Sample struct {
-	ID uint64 `gorm:"primaryKey;autoIncrement" json:"id"`
+	ID uint64 `gorm:"primaryKey;autoIncrement" json:"ID"`
 	gorm.Model
 	Name      string  `json:"name"`
 	Age       int     `json:"age"`

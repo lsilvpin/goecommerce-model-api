@@ -34,6 +34,10 @@ func UpdateSample(id uint64, sample entities.Sample) {
 		Updates(sample)
 }
 
-func DeleteSampleById(id uint64) {
-	utils.DB.Delete(&entities.Sample{}, id)
+func DeleteSampleById(id uint64) error {
+	sample, err := ReadSampleById(id)
+	if err == nil {
+		utils.DB.Delete(&sample)
+	}
+	return err
 }

@@ -108,11 +108,20 @@ func DeleteSample(c *gin.Context) {
 		})
 		return
 	}
-	repositories.DeleteSampleById(idFromInput)
+	deleteErr := repositories.DeleteSampleById(idFromInput)
+	if deleteErr != nil {
+		c.JSON(404, gin.H{
+			"retorno": models.ReturnModel{
+				Trace:   "",
+				Message: "Amostra de id " + strconv.FormatUint(idFromInput, 10) + " não encontrada",
+			},
+		})
+		return
+	}
 	c.JSON(http.StatusOK, gin.H{
 		"retorno": models.ReturnModel{
 			Trace:   "",
-			Message: "Amostra deletada com sucesso",
+			Message: "Amostra de id " + strconv.FormatUint(idFromInput, 10) + " deletada com sucesso",
 		},
 	})
 }
