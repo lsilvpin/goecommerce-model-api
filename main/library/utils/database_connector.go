@@ -5,7 +5,6 @@ import (
 
 	"github.com/glebarez/sqlite"
 	entities "github.com/lsilvpin/goecommerce-model-api/main/library/domain/entities"
-	"github.com/lsilvpin/goecommerce-model-api/main/library/tools"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
@@ -15,8 +14,8 @@ var (
 )
 
 func ConnectToDatabaseAndMigrate() {
-	environment := tools.GetEnv("ENVIRONMENT")
-	connectionString := tools.GetEnv("DATABASE_CONNECTION_STRING")
+	environment := GetEnv("ENVIRONMENT")
+	connectionString := GetEnv("DATABASE_CONNECTION_STRING")
 	log.Println("Connection string: ", connectionString)
 	err := error(nil)
 	if environment == "dev" {
