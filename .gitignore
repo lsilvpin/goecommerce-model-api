@@ -21,6 +21,9 @@
 go.work
 go.work.sum
 
+# Temp Files
+.tmp
+
 # env file
 .env
 
