@@ -8,15 +8,15 @@ import (
 	entities "github.com/lsilvpin/goecommerce-model-api/main/library/domain/entities"
 	models "github.com/lsilvpin/goecommerce-model-api/main/library/domain/models"
 	"github.com/lsilvpin/goecommerce-model-api/main/library/repositories"
-	"github.com/lsilvpin/goecommerce-model-api/main/library/utils"
 )
 
 func GetSamples(c *gin.Context) {
+	samples := repositories.ReadAllSamples()
 	c.JSON(200, gin.H{
-		"samples": utils.GenerateSampleList(),
+		"samples": samples,
 		"retorno": models.ReturnModel{
 			Trace:             "",
-			Message:           "Lista de amostras retornada com sucesso",
+			Message:           "Amostras retornadas com sucesso",
 			HttpStatusMessage: "OK",
 			HttpStatusCode:    200,
 		},

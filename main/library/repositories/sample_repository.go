@@ -9,6 +9,12 @@ func CreateSample(sample entities.Sample) {
 	utils.DB.Create(&sample)
 }
 
+func ReadAllSamples() []entities.Sample {
+	samples := []entities.Sample{}
+	utils.DB.Find(&samples)
+	return samples
+}
+
 func ReadSampleById(id uint64) entities.Sample {
 	sample := entities.Sample{}
 	utils.DB.First(&sample, id)
