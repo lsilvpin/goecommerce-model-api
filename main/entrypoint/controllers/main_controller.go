@@ -65,9 +65,19 @@ func CreateSample(c *gin.Context) {
 		})
 		return
 	}
-	repositories.CreateSample(sample)
+	createdId := repositories.CreateSample(sample)
+	createdSample, createErr := repositories.ReadSampleById(createdId)
+	if createErr != nil {
+		c.JSON(500, gin.H{
+			"retorno": models.ReturnModel{
+				Trace:   "",
+				Message: "Erro após criar sample: " + createErr.Error(),
+			},
+		})
+		return
+	}
 	c.JSON(http.StatusOK, gin.H{
-		"createdSample": sample,
+		"createdSample": createdSample,
 		"retorno": models.ReturnModel{
 			Trace:   "",
 			Message: "Amostra criada com sucesso",

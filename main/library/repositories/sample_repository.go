@@ -7,8 +7,9 @@ import (
 	"github.com/lsilvpin/goecommerce-model-api/main/library/utils"
 )
 
-func CreateSample(sample entities.Sample) {
+func CreateSample(sample entities.Sample) uint64 {
 	utils.DB.Create(&sample)
+	return sample.ID
 }
 
 func ReadAllSamples() []entities.Sample {
