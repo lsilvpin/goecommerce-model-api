@@ -12,7 +12,7 @@ RUN go mod download
 COPY . .
 
 # Compila o binário da aplicação para produção
-RUN CGO_ENABLED=0 GOOS=linux go build -o ./main/main ./main/main.go
+RUN CGO_ENABLED=0 GOOS=linux go build -o ./main/goecommerce-golang-model-api ./main/main.go
 
 # Etapa final: usa uma imagem leve para produção
 FROM debian:bookworm-slim
@@ -21,10 +21,11 @@ FROM debian:bookworm-slim
 WORKDIR /app
 
 # Copia o binário compilado da etapa de build
-COPY --from=builder /app/main/main .
+COPY --from=builder /app/main/goecommerce-golang-model-api .
+RUN echo "Fake go.mod file" > ./go.mod
 
 # Expõe a porta usada pela API (ajuste conforme a configuração do Gin)
 EXPOSE 8080
 
 # Comando para executar a aplicação
-CMD ["./main/main"]
+CMD ["./goecommerce-golang-model-api"]
