@@ -12,7 +12,7 @@ func GetRootDir() (string, error) {
 		return "", err
 	}
 	for {
-		envPath := filepath.Join(currentDir, "go.mod")
+		envPath := filepath.Join(currentDir, ".env")
 		if _, err := os.Stat(envPath); err == nil {
 			return currentDir, nil
 		}

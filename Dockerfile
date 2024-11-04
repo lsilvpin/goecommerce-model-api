@@ -23,7 +23,6 @@ WORKDIR /app
 # Copia o binário compilado da etapa de build
 COPY --from=builder /app/main/goecommerce-golang-model-api .
 COPY --from=builder /app/.env .
-RUN echo "Fake go.mod file" > ./go.mod
 RUN mkdir .tmp
 
 # Expõe a porta usada pela API (ajuste conforme a configuração do Gin)
